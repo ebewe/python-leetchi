@@ -25,7 +25,7 @@ class BaseModelOptions(object):
         self.model_class = model_class
 
     def get_sorted_fields(self):
-        return sorted(self.fields.items(), key=lambda (k, v): (k == self.pk_name and 1 or 2, v._order))
+        return sorted(self.fields.items(), key=lambda k, v: (k == self.pk_name and 1 or 2, v._order))
 
     def get_field_names(self):
         return [f[0] for f in self.get_sorted_fields()]
@@ -115,7 +115,7 @@ class ApiObjectBase(type):
         cls._meta = _meta
         cls._data = None
 
-        for name, attr in cls.__dict__.items():
+        for name, attr in list(cls.__dict__.items()):
             if not isinstance(attr, Field):
                 continue
 
@@ -130,9 +130,11 @@ class ApiObjectBase(type):
 
         _meta.model_name = new_class.__name__
 
-        if hasattr(cls, '__unicode__'):
+        if hasattr(cls, '__str__'):
             setattr(cls, '__repr__', lambda self: '<%s: %s>' % (
-                _meta.model_name, self.__unicode__()))
+                _meta.model_name,
+                self.__str__()
+            ))
 
         exception_class = type('%sDoesNotExist' % _meta.model_name, (DoesNotExist,), {})
 
@@ -142,8 +144,7 @@ class ApiObjectBase(type):
         return cls
 
 
-class BaseApiModel(object):
-    __metaclass__ = ApiObjectBase
+class BaseApiModel(object, metaclass= ApiObjectBase):
 
     def __init__(self, *args, **kwargs):
         self._data = self._meta.get_default_dict()

@@ -59,7 +59,7 @@ class InsertQuery(BaseQuery):
 
     def parse_insert(self):
         pairs = {}
-        for k, v in self.insert_query.iteritems():
+        for k, v in self.insert_query.items():
             field = self.model._meta.get_field_by_name(k)
 
             if field.required or v is not None:
@@ -93,7 +93,7 @@ class UpdateQuery(BaseQuery):
 
     def parse_update(self):
         pairs = {}
-        for k, v in self.update_query.iteritems():
+        for k, v in self.update_query.items():
             field = self.model._meta.get_field_by_name(k)
 
             if field.required or v is not None:

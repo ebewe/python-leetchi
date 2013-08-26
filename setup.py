@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 root = os.path.abspath(os.path.dirname(__file__))
 
-version = __import__('leetchi').__version__
+version = __import__('mangopay').__version__
 
 with open(os.path.join(root, 'README.rst')) as f:
     README = f.read()
@@ -20,16 +20,16 @@ CLASSIFIERS = [
     'Topic :: Software Development :: Libraries :: Python Modules'
 ]
 
-KEYWORDS = 'leetchi api rest users wallets contributions'
+KEYWORDS = 'mangopay api rest users wallets contributions'
 
 setup(
-    name='python-leetchi',
+    name='python-mangopay-py3k',
     version=version,
-    description='Leetchi API implementation in Python',
+    description='MangoPay API implementation in Python 3',
     long_description=README + '\n\n' + CHANGES,
     author='Florent Messa',
     author_email='florent.messa@gmail.com',
-    url='http://github.com/thoas/python-leetchi',
+    url='http://github.com/ebewe/python-mangopay-py3k',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -37,7 +37,7 @@ setup(
         'distribute',
         'requests',
         'simplejson>=2.0.9',
-        'M2Crypto>=0.21.1',
+        'pycrypto>=2.6',
         'blinker==1.2'
     ],
     classifiers=CLASSIFIERS,

@@ -31,7 +31,7 @@ def check_required(required, **kwargs):
 
 
 class LeetchiAPI(object):
-    sandbox_host = 'http://api.prod.leetchi.com'
+    sandbox_host = 'http://api-preprod.leetchi.com'
     production_host = 'http://api.leetchi.com'
 
     def __init__(self, partner_id, private_key, private_key_password, sandbox=False, host=None):
@@ -63,7 +63,7 @@ class LeetchiAPI(object):
 
         signed_data = openssl_sign(data, private_key)
 
-        signature = base64.encodestring(signed_data)
+        signature = base64.encodebytes(signed_data)
 
         return signature
 
@@ -89,7 +89,7 @@ class LeetchiAPI(object):
         timestamp = time.time()
 
         headers = {
-            'X-Leetchi-Signature': self._auth_signature(method, url, data, timestamp).replace('\n', ''),
+            'X-Leetchi-Signature': self._auth_signature(method, url, data, timestamp).decode('utf-8').replace('\n', ''),
             'Content-Type': 'application/json'
         }
 

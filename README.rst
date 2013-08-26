@@ -1,22 +1,22 @@
 ==============
-python-leetchi
+python-mangopay-py3k
 ==============
 
-python-leetchi is a client library to work with `mangopay <http://www.mangopay.com/>`_
+python-mangopay-py3k is a client library to work with `mangopay <http://www.mangopay.com/>`_
 api (formely `leetchi <http://www.leetchi.com/>`_).
 
 Installation
 ------------
 
-python-leetchi requires requests_, M2Crypto_ and blinker_ to work.
+python-mangopay-py3k requires requests_, PyCrypto_ and blinker_ to work.
 
 .. _requests: http://docs.python-requests.org/en/latest/
-.. _M2Crypto: https://pypi.python.org/pypi/M2Crypto
+.. _PyCrypto: https://pypi.python.org/pypi/pycrypto
 .. _blinker: https://pypi.python.org/pypi/blinker
 
 To install it, simply ::
 
-    pip install python-leetchi
+	pip install --no-deps git+https://github.com/ebewe/python-mangopay-py3k
 
 
 Inspiration

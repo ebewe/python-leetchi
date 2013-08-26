@@ -80,7 +80,7 @@ class DateTimeField(Field):
     def python_value(self, value):
         value = super(DateTimeField, self).python_value(value)
 
-        if isinstance(value, basestring):
+        if isinstance(value, (str,bytes)):
             value = value.rsplit('.', 1)[0]
             value = datetime(*time.strptime(value, '%Y-%m-%d %H:%M:%S')[:6])
 
@@ -102,7 +102,7 @@ class DateField(Field):
     def python_value(self, value):
         value = super(DateField, self).python_value(value)
 
-        if isinstance(value, basestring):
+        if isinstance(value, (str,bytes)):
             value = value.rsplit('.', 1)[0]
             value = datetime.date(*time.strptime(value, '%Y-%m-%d')[:6])
 

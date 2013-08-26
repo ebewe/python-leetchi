@@ -1,26 +1,29 @@
 # see: http://hustoknow.blogspot.com/2011/01/m2crypto-and-facebook-python-sdk.html
 from __future__ import unicode_literals
 
-import urllib
-orig = urllib.URLopener.open_https
-import M2Crypto.m2urllib  # noqa
-urllib.URLopener.open_https = orig   # uncomment this line back and forth
-from M2Crypto import EVP
+from urllib import request
+orig = request.URLopener.open_https
+from Crypto.PublicKey import RSA
+from Crypto.Hash import SHA
+from Crypto.Signature import PKCS1_v1_5
+request.URLopener.open_https = orig   # uncomment this line back and forth
 
 import datetime
 
 
 def openssl_pkey_get_private(filename, password):
-    private_key = EVP.load_key(filename, lambda x: password)
+    f = open(filename,'r')
+    private_key = RSA.importKey(f.read())
 
     return private_key
 
 
 def openssl_sign(data, key):
-    key.sign_init()
-    key.sign_update(data)
+    h = SHA.new(data.encode('utf-8'))
+    signer = PKCS1_v1_5.new(key)
+    signature = signer.sign(h)
 
-    return key.sign_final()
+    return signature
 
 
 # This code belongs to https://github.com/carljm/django-model-utils
