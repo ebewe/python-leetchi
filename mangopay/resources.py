@@ -55,6 +55,9 @@ class Beneficiary(BaseModel):
         verbose_name = 'beneficiary'
         verbose_name_plural = 'beneficiaries'
 
+    def __str__(self):
+        return self.bank_account_owner_name
+
 
 class Wallet(BaseModel):
     users = ManyToManyField(User, api_name='Owners', related_name='wallets')
@@ -94,6 +97,9 @@ class PaymentCard(BaseApiModel):
     class Meta:
         verbose_name = 'card'
         verbose_name_plural = 'cards'
+
+    def __str__(self):
+        return self.card_number
 
 
 class Contribution(BaseModel):
@@ -150,6 +156,9 @@ class WithdrawalContribution(BaseModel):
         verbose_name = 'contributions-by-withdrawal'
         verbose_name_plural = 'contributions-by-withdrawal'
 
+    def __str__(self):
+        return self.amount_declared
+
 
 class Withdrawal(BaseModel):
     user = ForeignKeyField(User, api_name='UserID', required=True,
@@ -173,6 +182,9 @@ class Withdrawal(BaseModel):
     class Meta:
         verbose_name = 'withdrawal'
         verbose_name_plural = 'withdrawals'
+
+    def __str__(self):
+        return self.amount
 
 
 class Transfer(BaseModel):
@@ -230,6 +242,9 @@ class Refund(BaseModel):
         verbose_name = 'refund'
         verbose_name_plural = 'refunds'
 
+    def __str__(self):
+        return self.is_succeeded
+
     def is_success(self):
         return self.is_succeeded and self.is_completed
 
@@ -254,6 +269,9 @@ class StrongAuthentication(BaseModel):
             UpdateQuery.identifier: lambda params, reference: '/users/%s/strongAuthentication' % params['user_id']
         }
 
+    def __str__(self):
+        return self.url_request
+
 
 class Operation(BaseModel):
     user = ForeignKeyField(User, api_name='UserID', required=True,
@@ -268,3 +286,6 @@ class Operation(BaseModel):
     class Meta:
         verbose_name = 'operation'
         verbose_name_plural = 'operations'
+
+    def __str__(self):
+        return self.amount
